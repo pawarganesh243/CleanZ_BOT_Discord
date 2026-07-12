@@ -1,5 +1,13 @@
 import { Client, GatewayIntentBits, ApplicationCommandOptionType, PermissionsBitField, REST, Routes, EmbedBuilder } from 'discord.js';
 import * as dotenv from 'dotenv';
+import express from 'express';
+
+// Dummy Web Server for Render
+const app = express();
+const port = process.env.PORT || 3000;
+app.get('/', (req, res) => res.send('CleanZ Bot is alive!'));
+app.listen(port, () => console.log(`Dummy web server listening on port ${port}`));
+
 
 dotenv.config();
 
