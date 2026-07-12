@@ -87,7 +87,7 @@ async function cleanupMessages(channel, amount) {
 
 client.once('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setActivity('/clean | Keeping servers tidy', { type: ActivityType.Playing });
+  client.user.setActivity('/clean', { type: ActivityType.Listening });
 
   // Register Slash Commands globally
   try {
