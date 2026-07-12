@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, ApplicationCommandOptionType, PermissionsBitField, REST, Routes, EmbedBuilder } from 'discord.js';
+import { Client, GatewayIntentBits, ApplicationCommandOptionType, PermissionsBitField, REST, Routes, EmbedBuilder, ActivityType } from 'discord.js';
 import * as dotenv from 'dotenv';
 import express from 'express';
 
@@ -85,8 +85,9 @@ async function cleanupMessages(channel, amount) {
   }
 }
 
-client.once('clientReady', async () => {
+client.once('ready', async () => {
   console.log(`Logged in as ${client.user.tag}!`);
+  client.user.setActivity('/clean | Keeping servers tidy', { type: ActivityType.Playing });
 
   // Register Slash Commands globally
   try {
