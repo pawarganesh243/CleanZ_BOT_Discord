@@ -129,14 +129,13 @@ client.on('interactionCreate', async interaction => {
   if (interaction.commandName === 'clean') {
     const amount = interaction.options.getInteger('amount');
 
-    // Ensure bot has Manage Messages permission
-    const botPerms = interaction.channel.permissionsFor(interaction.guild.members.me);
-    if (!botPerms.has(PermissionsBitField.Flags.ManageMessages)) {
-      return interaction.reply({ content: 'I do not have the **Manage Messages** permission in this channel!', ephemeral: true });
-    }
-
-    // Acknowledge the interaction immediately to prevent timeout (deletion might take time)
+    // Acknowledge the interaction immediately to prevent timeout
     await interaction.deferReply({ ephemeral: true });
+
+    // Ensure bot has Manage Messages permission safely using appPermissions
+    if (!interaction.appPermissions.has(PermissionsBitField.Flags.ManageMessages)) {
+      return interaction.editReply({ content: 'I do not have the **Manage Messages** permission in this channel!' });
+    }
 
     try {
       const deletedCount = await cleanupMessages(interaction.channel, amount);
